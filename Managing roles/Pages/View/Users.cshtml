@@ -1,0 +1,28 @@
+﻿@page
+@model Managing_roles.Pages.View.UsersModel
+@{
+    ViewData["Title"] = "Список пользователей";
+}
+<h1>Список пользователей</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название роли</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in @Model.Users)
+        {
+            <tr>
+                <td>@user.Name</td>
+                @if (HttpContext.User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-page="/Admin/User" asp-route-id="@user.Id" class="btn btn-primary">Права доступа</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

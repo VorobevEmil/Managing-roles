@@ -1,0 +1,20 @@
+﻿@page
+@using System.Security.Claims
+@model IndexModel
+@{
+    ViewData["Title"] = "Главная страница";
+}
+
+<div class="text-center">
+    <h2><a asp-page="/View/Users">Список пользователей</a> | <a asp-page="/View/Roles">Список ролей</a></h2>
+</div>
+
+<div>
+    <h3>Ваши роли</h3>
+    <ul>
+        @foreach (var role in @HttpContext.User.FindAll(ClaimTypes.Role))
+        {
+            <li>@role.Value</li>
+        }
+    </ul>
+</div>

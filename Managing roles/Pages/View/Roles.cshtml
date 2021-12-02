@@ -1,0 +1,35 @@
+﻿@page
+@model Managing_roles.Pages.View.RolesModel
+@{
+    ViewData["Title"] = "Список ролей";
+}
+
+<h1>Список ролей</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название роли</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in @Model.Roles)
+        {
+            <tr>
+                <td>@role.Name</td>
+                @if (HttpContext.User.IsInRole("Admin"))
+                {
+                    <td>
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (HttpContext.User.IsInRole("Admin"))
+{
+    <a asp-page="/Admin/Role">Добавить новую роль</a>
+}
+<a asp-page="/View/Users">Список пользователей</a>
