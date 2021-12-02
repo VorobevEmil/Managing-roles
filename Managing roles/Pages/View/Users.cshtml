@@ -4,6 +4,22 @@
     ViewData["Title"] = "Список пользователей";
 }
 <h1>Список пользователей</h1>
+
+<div>
+    <form method="get">
+        <div style="float:right">
+            <h3>Фильтр пользователей по их ролям</h3>
+            <input type="radio" asp-for="FilterRoleId" value="0" /> Выкл. <br />
+            <input type="radio" asp-for="FilterRoleId" value="1" /> User <br />
+            <input type="radio" asp-for="FilterRoleId" value="2" /> Admin <br />
+            <input type="radio" asp-for="FilterRoleId" value="3" /> Moderator<br />
+        </div>
+        <div>
+            <input asp-for="SearchBar" class="input" />
+            <button type="submit">Поиск</button>
+        </div>
+    </form>
+</div>
 <table class="table">
     <thead>
         <tr>
