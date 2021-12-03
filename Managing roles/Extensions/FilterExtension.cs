@@ -6,17 +6,12 @@ namespace Managing_roles.Extensions
 {
     public static class FilterExtension
     {
-        public static List<User> FilterUsersByRoles(this IEnumerable<User> users, int roleId)
+        public static List<User> FilterUsersByRoles(this IEnumerable<User> users, int roleId, List<Role> allRoles)
         {
-            switch (roleId)
-            {
-                case 1:
-                case 2:
-                case 3:
-                    return users.Where(t => t.RoleUsers.Select(t => t.RoleId).Contains(roleId)).ToList();
-                default:
-                    return users.ToList();
-            }
+            if (allRoles.Select(t => t.Id).Contains(roleId))
+                return users.Where(t => t.RoleUsers.Select(t => t.RoleId).Contains(roleId)).ToList();
+
+            return users.ToList();
         }
     }
 }

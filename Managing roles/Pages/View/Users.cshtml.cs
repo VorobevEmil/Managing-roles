@@ -16,6 +16,7 @@ namespace Managing_roles.Pages.View
             this._service = service;
         }
         public List<User> Users { get; set; }
+        public List<Role> AllRoles { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string SearchBar { get; set; }
@@ -24,13 +25,16 @@ namespace Managing_roles.Pages.View
         public int FilterRoleId { get; set; }
         public void OnGet()
         {
+            // Список всех фильтров для вывода фильтров на странице
+            AllRoles = _service.Role.GetRoles();
+
             Users = _service.User.GetUsers();
 
             //Поиск
             Users = Users.UserSearch(SearchBar);
 
             //Фильтр
-            Users = Users.FilterUsersByRoles(FilterRoleId);
+            Users = Users.FilterUsersByRoles(FilterRoleId, AllRoles);
         }
     }
 }

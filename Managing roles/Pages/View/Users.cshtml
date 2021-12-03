@@ -10,9 +10,10 @@
         <div style="float:right">
             <h3>Фильтр пользователей по их ролям</h3>
             <input type="radio" asp-for="FilterRoleId" value="0" /> Выкл. <br />
-            <input type="radio" asp-for="FilterRoleId" value="1" /> User <br />
-            <input type="radio" asp-for="FilterRoleId" value="2" /> Admin <br />
-            <input type="radio" asp-for="FilterRoleId" value="3" /> Moderator<br />
+            @foreach(var role in @Model.AllRoles)
+            {
+                <input type="radio" asp-for="FilterRoleId" value="@role.Id" /> @role.Name <br />
+            }
         </div>
         <div>
             <input asp-for="SearchBar" class="input" />
