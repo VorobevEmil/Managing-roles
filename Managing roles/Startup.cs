@@ -2,6 +2,7 @@ using Managing_roles.Data;
 using Managing_roles.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,10 @@ namespace Managing_roles
                 options.UseSqlite(Configuration.GetConnectionString("SqlLiteConnection")));
 
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
+            services.AddAuthorization(configure =>
+            {
+                configure.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+            });
 
             services.AddMvc();
 
@@ -54,10 +59,11 @@ namespace Managing_roles
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseMiddleware<UserRolesMiddleware>();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseMiddleware<UserRolesMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

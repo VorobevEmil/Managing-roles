@@ -1,6 +1,6 @@
 using Managing_roles.Data;
 using Managing_roles.Data.Entities;
-using Managing_roles.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Managing_roles.Pages.Admin
 {
-    [RoleRequirement("Admin")]
+    [Authorize("Admin")]
     public class UserModel : PageModel
     {
         private readonly DataManager _service;
